@@ -932,6 +932,39 @@
     padding-top: 0;
   }
 
+  .work-group-label {
+    display: flex;
+    grid-column: 1 / -1;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--text);
+    font-size: var(--text-meta);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  .work-group-label::after {
+    height: 1px;
+    flex: 1;
+    background: var(--line);
+    content: "";
+  }
+
+  .work-group-label span {
+    color: var(--brand-deep);
+    font-family: var(--font-display);
+    font-size: var(--text-caption);
+    letter-spacing: 0.12em;
+  }
+
+  html[data-theme="dark"] .work-group-label span {
+    color: var(--brand);
+  }
+
+  .work-group-label--products {
+    margin-top: 0.5rem;
+  }
+
   .case-card {
     min-width: 0;
   }
@@ -1650,6 +1683,36 @@
     padding-block: clamp(1.9rem, 3.5vw, 2.9rem) clamp(2.5rem, 5vw, 4rem);
     border-block: 0;
     background: var(--page);
+  }
+
+  .faq-section {
+    padding-block: clamp(1.9rem, 3.5vw, 2.9rem);
+    border-top: 1px solid var(--line);
+    background: var(--surface);
+  }
+
+  .faq-section .mockup-section-title {
+    margin-bottom: clamp(1.4rem, 3vw, 2.2rem);
+  }
+
+  .faq-list {
+    max-width: 64rem;
+    margin-inline: auto;
+  }
+
+  .faq-list summary {
+    cursor: pointer;
+    line-height: 1.5;
+  }
+
+  .faq-list summary:focus-visible {
+    border-radius: 0.25rem;
+    outline: 2px solid var(--brand-deep);
+    outline-offset: 0.25rem;
+  }
+
+  html[data-theme="dark"] .faq-list summary:focus-visible {
+    outline-color: var(--brand);
   }
 
   .process-steps {
