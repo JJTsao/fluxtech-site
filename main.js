@@ -263,6 +263,8 @@ function initializeGa4(measurementId) {
   const validId = /^G-[A-Z0-9]+$/i.test(measurementId) && !measurementId.includes("XXXX");
   if (!validId) return;
 
+  const isDebugMode = new URLSearchParams(window.location.search).has("ga_debug");
+
   window.dataLayer = window.dataLayer || [];
   window.gtag = function gtag() {
     window.dataLayer.push(arguments);
@@ -271,6 +273,7 @@ function initializeGa4(measurementId) {
   window.gtag("js", new Date());
   window.gtag("config", measurementId, {
     send_page_view: true,
+    ...(isDebugMode ? { debug_mode: true } : {}),
   });
 
   const analyticsScript = document.createElement("script");
