@@ -79,6 +79,7 @@
     --header: #f5f7f1;
     --header-alpha: rgba(245, 247, 241, 0.9);
     --hero-image: url("assets/hero-flow-light.webp");
+    --flow-stage-raster: url("assets/flow-stage-raster-light.webp");
     --section-contrast: #e9eee4;
     --shadow-soft: 0 24px 70px rgba(32, 43, 25, 0.1);
 
@@ -109,6 +110,7 @@
     --header: #0b0e0c;
     --header-alpha: rgba(11, 14, 12, 0.9);
     --hero-image: url("assets/hero-flow-dark.webp");
+    --flow-stage-raster: url("assets/flow-stage-raster-dark.webp");
     --section-contrast: #0f140f;
     --shadow-soft: none;
   }
@@ -666,6 +668,146 @@
 }
 
 @layer sections {
+  .flow-stage {
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
+    background: linear-gradient(to bottom, var(--page) 0%, var(--page) 52%, var(--surface) 68%, var(--surface) 100%);
+  }
+
+  .flow-stage__raster,
+  .flow-stage__vector {
+    position: absolute;
+    z-index: 0;
+    inset: -3%;
+    pointer-events: none;
+  }
+
+  .flow-stage__raster {
+    background-image: var(--flow-stage-raster);
+    background-position: 100% 38%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.66;
+    transform: scale(1.025);
+    will-change: transform;
+    animation: flow-raster-drift 18s ease-in-out infinite alternate;
+  }
+
+  .flow-stage__vector {
+    opacity: 0;
+    overflow: hidden;
+    transition: opacity 320ms var(--ease-out);
+  }
+
+  .flow-stage__vector svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .flow-stage__vector-ribbons {
+    transform-origin: 100% 50%;
+    animation: flow-vector-drift 15s ease-in-out infinite alternate;
+  }
+
+  .flow-ribbon {
+    fill: none;
+    stroke-linecap: round;
+  }
+
+  .flow-ribbon--charcoal {
+    stroke: url(#flow-charcoal);
+    stroke-width: 54;
+    opacity: 0.2;
+  }
+
+  .flow-ribbon--wide {
+    stroke: url(#flow-lime);
+    stroke-width: 26;
+    opacity: 0.16;
+  }
+
+  .flow-ribbon--lime {
+    stroke: url(#flow-lime);
+    stroke-width: 5;
+    opacity: 0.66;
+  }
+
+  .flow-ribbon--fine {
+    stroke: url(#flow-lime);
+    stroke-width: 1.8;
+    opacity: 0.5;
+  }
+
+  .flow-ribbon--offset {
+    opacity: 0.28;
+  }
+
+  .flow-ribbon--glow {
+    stroke: url(#flow-lime);
+    stroke-width: 4;
+    stroke-dasharray: 42 930;
+    filter: url(#flow-glow);
+    opacity: 0.9;
+    animation: flow-trace 9s linear infinite;
+  }
+
+  .flow-stage__vector-particles {
+    fill: var(--brand);
+    opacity: 0.72;
+    transform-origin: 100% 50%;
+    animation: flow-particles 10s ease-in-out infinite alternate;
+  }
+
+  .flow-stop--soft {
+    stop-color: color-mix(in srgb, var(--surface) 10%, transparent);
+  }
+
+  .flow-stop--lime {
+    stop-color: var(--brand-deep);
+  }
+
+  .flow-stop--bright {
+    stop-color: color-mix(in srgb, var(--brand) 68%, #fff 32%);
+  }
+
+  .flow-stop--charcoal-soft {
+    stop-color: color-mix(in srgb, var(--surface) 16%, transparent);
+  }
+
+  .flow-stop--charcoal {
+    stop-color: var(--text);
+  }
+
+  html[data-theme="dark"] .flow-stop--bright {
+    stop-color: color-mix(in srgb, var(--brand) 80%, #f6ffb2 20%);
+  }
+
+  html[data-flow-variant="svg"] .flow-stage__raster {
+    opacity: 0;
+    animation-play-state: paused;
+  }
+
+  html[data-flow-variant="svg"] .flow-stage__vector {
+    opacity: 0.86;
+  }
+
+  .flow-stage .hero,
+  .flow-stage .service-section {
+    position: relative;
+    z-index: 1;
+    background: transparent;
+  }
+
+  .flow-stage .hero {
+    border-bottom-color: transparent;
+  }
+
+  .flow-stage .hero__art {
+    display: none;
+  }
+
   .hero {
     position: relative;
     min-height: 50rem;
@@ -1941,6 +2083,48 @@
     }
   }
 
+  @keyframes flow-raster-drift {
+    from {
+      transform: scale(1.025) translate3d(0, 0, 0);
+    }
+
+    to {
+      transform: scale(1.05) translate3d(-1.2%, 0.7%, 0);
+    }
+  }
+
+  @keyframes flow-vector-drift {
+    from {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    to {
+      transform: translate3d(-0.8%, 0.6%, 0) scale(1.018);
+    }
+  }
+
+  @keyframes flow-trace {
+    from {
+      stroke-dashoffset: 930;
+    }
+
+    to {
+      stroke-dashoffset: -40;
+    }
+  }
+
+  @keyframes flow-particles {
+    from {
+      transform: translate3d(0, 0, 0);
+      opacity: 0.32;
+    }
+
+    to {
+      transform: translate3d(-1.4%, 0.8%, 0);
+      opacity: 0.82;
+    }
+  }
+
   .sr-only {
     position: absolute;
     width: 1px;
@@ -1954,6 +2138,22 @@
 }
 
 @layer responsive {
+  @media (max-width: 39.999rem) {
+    .flow-stage__raster {
+      background-position: 100% 20%;
+      background-size: auto 76rem;
+      opacity: 0.54;
+    }
+
+    .flow-stage__vector {
+      inset: -1% -5%;
+    }
+
+    html[data-flow-variant="svg"] .flow-stage__vector {
+      opacity: 0.68;
+    }
+  }
+
   @media (min-width: 40rem) {
     .nav-line-button {
       display: inline-flex;
@@ -2427,6 +2627,13 @@
       animation: none;
       transform: none;
       opacity: 1;
+    }
+
+    .flow-stage__raster,
+    .flow-stage__vector-ribbons,
+    .flow-ribbon--glow,
+    .flow-stage__vector-particles {
+      animation: none;
     }
   }
 }

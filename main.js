@@ -6,11 +6,14 @@ const siteConfig = Object.freeze({
 });
 
 const root = document.documentElement;
+const flowVariant = new URLSearchParams(window.location.search).get("flow_variant");
 const themeToggles = document.querySelectorAll("[data-theme-toggle]");
 const themeOptions = document.querySelectorAll("[data-theme-option]");
 const themeColorMeta = document.querySelector('meta[name="theme-color"]');
 const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+root.dataset.flowVariant = flowVariant === "svg" ? "svg" : "raster";
 
 function setTheme(theme, { persist = false } = {}) {
   const nextTheme = theme === "dark" ? "dark" : "light";
