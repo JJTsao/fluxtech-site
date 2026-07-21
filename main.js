@@ -1,5 +1,5 @@
 const siteConfig = Object.freeze({
-  lineUrl: "https://line.me/R/ti/p/@fluxtech",
+  lineUrl: "https://lin.ee/OuQwwsB",
   gaMeasurementId: "",
   themeStorageKey: "fluxtech-theme",
   ...(typeof fluxtechSiteConfig === "undefined" ? {} : fluxtechSiteConfig),

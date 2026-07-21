@@ -97,10 +97,17 @@
 - GA4 重要事件可在 DebugView 驗證。
 - SEO 檔案、metadata、結構化資料與分享縮圖通過基本檢查。
 
-## 9. 上線前待提供
+## 9. 已確認公司資訊
 
-- LINE 官方帳號連結。
+- 正式中文名稱：捷伴數位股份有限公司。
+- 公開 Email：`fluxtech.tw@gmail.com`。
+- LINE 官方帳號：`https://lin.ee/OuQwwsB`。
+- Facebook：`https://www.facebook.com/profile.php?id=61590889914276`。
+- 暫不公開電話、城市、地址與統一編號；英文名稱與 Instagram 尚未建立。
+
+## 10. 上線前待提供
+
 - GA4 Measurement ID。
 - 正式網域、部署位置與 DNS 配合方式。
-- 正式 Logo、公司資料、聯絡方式及案例素材。
+- 最終案例素材與正式網址。
 - Search Console 使用的 Google 帳號或網域驗證配合。

@@ -12,7 +12,7 @@ python3 -m http.server 4173
 
 ## 上線前設定
 
-1. 在 `site-config.js` 替換 LINE 官方帳號連結與 GA4 Measurement ID。
+1. 在 `site-config.js` 確認 LINE 官方帳號連結並替換 GA4 Measurement ID。
 2. 在 `index.html`、`robots.txt`、`sitemap.xml` 替換正式網域與公司資料。
 3. 替換客戶案例與自有產品的縮圖、名稱、摘要、狀態及外部連結。
 4. 以正式網域完成 Google Search Console 驗證並提交 `sitemap.xml`。

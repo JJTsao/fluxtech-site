@@ -1,5 +1,5 @@
 var fluxtechSiteConfig = Object.freeze({
-  lineUrl: "https://line.me/R/ti/p/@fluxtech",
+  lineUrl: "https://lin.ee/OuQwwsB",
   gaMeasurementId: "G-XXXXXXXXXX",
   themeStorageKey: "fluxtech-theme",
 });
