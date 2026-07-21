@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="zh-Hant" data-theme="light">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+    <script>
+      (() => {
+        try {
+          const savedTheme = localStorage.getItem("fluxtech-theme");
+          const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+          document.documentElement.dataset.theme = savedTheme || systemTheme;
+        } catch {
+          document.documentElement.dataset.theme = "light";
+        }
+      })();
+    </script>
+
+    <title>Fluxtech 流動科技｜輕量網站與 App 開發</title>
+    <meta
+      name="description"
+      content="Fluxtech 流動科技協助中小企業與組織，以合理預算快速建立一頁式形象網站、產品網站與數位服務。靜態網站不強制綁定維護月費，後台與 App 依需求規劃。"
+    >
+    <link rel="canonical" href="https://fluxtech.com.tw/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="zh_TW">
+    <meta property="og:site_name" content="Fluxtech 流動科技">
+    <meta property="og:title" content="Fluxtech 流動科技｜讓好網站，跟上你的生意速度">
+    <meta
+      property="og:description"
+      content="輕量、敏捷、不強制綁定維護月費。從一頁式形象網站到按需擴充的後台與 App。"
+    >
+    <meta property="og:url" content="https://fluxtech.com.tw/">
+    <meta property="og:image" content="https://fluxtech.com.tw/assets/og-cover.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Fluxtech 流動科技品牌視覺">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Fluxtech 流動科技｜讓好網站，跟上你的生意速度">
+    <meta
+      name="twitter:description"
+      content="輕量、敏捷、不強制綁定維護月費。"
+    >
+    <meta name="twitter:image" content="https://fluxtech.com.tw/assets/og-cover.jpg">
+
+    <meta name="theme-color" content="#f5f7f1">
+    <link rel="icon" type="image/png" sizes="96x96" href="assets/favicon-96.png">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&amp;family=Outfit:wght@500;600;700&amp;display=swap"
+      rel="stylesheet"
+    >
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0"
+      rel="stylesheet"
+    >
+    <link rel="preload" href="assets/hero-flow-light.webp" as="image" type="image/webp">
+
+    <link rel="stylesheet" href="styles.css">
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Fluxtech 流動科技",
+        "alternateName": "flux tech",
+        "url": "https://fluxtech.com.tw/",
+        "logo": "https://fluxtech.com.tw/assets/apple-touch-icon.png",
+        "email": "hello@fluxtech.com.tw",
+        "description": "提供一頁式形象網站、企業與產品網站、後台及 App 開發服務的數位工作室。"
+      }
+    </script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main-content">跳到主要內容</a>
+
+    <header class="site-header" data-site-header>
+      <div class="nav-shell">
+        <a class="brand" href="#top" aria-label="Fluxtech 流動科技首頁">
+          <img class="brand__mark" src="assets/flux-mark.png" width="230" height="182" alt="">
+          <span class="brand__copy">
+            <strong>flux tech</strong>
+            <small>流動科技</small>
+          </span>
+        </a>
+
+        <nav class="desktop-nav" aria-label="主要導覽">
+          <a href="#top">首頁</a>
+          <a href="#services">服務項目</a>
+          <a href="#work">作品案例</a>
+          <a href="#process">合作流程</a>
+          <a href="#about">關於我們</a>
+        </nav>
+
+        <div class="nav-actions">
+          <div class="theme-picker theme-picker--desktop" role="group" aria-label="顯示模式">
+            <button class="theme-picker__option" type="button" data-theme-option="light" aria-pressed="true">
+              <span class="material-symbols-outlined" aria-hidden="true">light_mode</span>
+              <span>淺色</span>
+            </button>
+            <button class="theme-picker__option" type="button" data-theme-option="dark" aria-pressed="false">
+              <span class="material-symbols-outlined" aria-hidden="true">dark_mode</span>
+              <span>深色</span>
+            </button>
+          </div>
+
+          <button class="theme-toggle theme-toggle--compact" type="button" data-theme-toggle aria-label="切換為深色模式">
+            <span class="material-symbols-outlined theme-toggle__icon" data-theme-toggle-icon aria-hidden="true">dark_mode</span>
+            <span class="theme-toggle__label" data-theme-toggle-label>深色</span>
+          </button>
+
+          <a
+            class="button button--compact nav-line-button"
+            href="https://line.me/R/ti/p/@fluxtech"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-line-link
+            data-placement="nav"
+          >
+            免費諮詢 <span aria-hidden="true">→</span>
+          </a>
+
+          <button
+            class="menu-toggle"
+            type="button"
+            aria-label="開啟導覽選單"
+            aria-expanded="false"
+            aria-controls="mobile-nav"
+            data-menu-toggle
+          >
+            <span class="material-symbols-outlined menu-toggle__icon" data-menu-toggle-icon aria-hidden="true">menu</span>
+            <span class="menu-toggle__label" data-menu-toggle-label>選單</span>
+          </button>
+        </div>
+      </div>
+
+      <nav class="mobile-nav" id="mobile-nav" aria-label="行動版導覽" data-mobile-nav>
+        <a href="#top"><span>01</span>首頁</a>
+        <a href="#services"><span>02</span>服務項目</a>
+        <a href="#work"><span>03</span>作品案例</a>
+        <a href="#process"><span>04</span>合作流程</a>
+        <a href="#about"><span>05</span>關於我們</a>
+        <div class="mobile-nav__theme">
+          <span class="mobile-nav__theme-label">顯示模式</span>
+          <div class="theme-picker theme-picker--mobile" role="group" aria-label="顯示模式">
+            <button class="theme-picker__option" type="button" data-theme-option="light" aria-pressed="true">
+              <span class="material-symbols-outlined" aria-hidden="true">light_mode</span>
+              <span>淺色</span>
+            </button>
+            <button class="theme-picker__option" type="button" data-theme-option="dark" aria-pressed="false">
+              <span class="material-symbols-outlined" aria-hidden="true">dark_mode</span>
+              <span>深色</span>
+            </button>
+          </div>
+        </div>
+        <a
+          class="mobile-nav__line"
+          href="https://line.me/R/ti/p/@fluxtech"
+          target="_blank"
+          rel="noopener noreferrer"
+          data-line-link
+          data-placement="mobile_menu"
+        >
+          加入 LINE 官方帳號 <span aria-hidden="true">↗</span>
+        </a>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <div class="hero__art" aria-hidden="true">
+          <div class="hero__art-image"></div>
+        </div>
+
+        <div class="container hero__grid">
+          <div class="hero__copy">
+            <p class="hero__eyebrow reveal" style="--reveal-order: 0">
+              <span>專業網站設計</span><i>×</i><span>APP 開發</span><i>×</i><span>品牌數位成長夥伴</span>
+            </p>
+            <h1 id="hero-title" class="reveal" style="--reveal-order: 1">
+              為您的品牌<br>
+              <span class="hero-title__line">打造<strong>高質感</strong>網站與 <strong>APP</strong></span>
+            </h1>
+            <p class="hero__lead reveal" style="--reveal-order: 2">
+              專注品牌與企業網站的設計與 APP 開發，結合品牌視覺與實用技術，
+              打造兼具質感與效能的數位體驗，讓您的品牌在數位世界脫穎而出。
+            </p>
+            <div class="hero__actions reveal" style="--reveal-order: 3">
+              <a
+                class="button button--primary"
+                href="https://line.me/R/ti/p/@fluxtech"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-line-link
+                data-placement="hero"
+              >
+                立即諮詢 <span aria-hidden="true">→</span>
+              </a>
+              <a class="button button--ghost" href="#work">
+                查看作品 <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="hero__showcase reveal" style="--reveal-order: 4">
+            <div class="hero-device">
+              <picture>
+                <source srcset="assets/hero-device-v3.webp" type="image/webp">
+                <img
+                  src="assets/hero-device-v3.png"
+                  width="1536"
+                  height="1024"
+                  alt="筆電與手機展示啟明學院網站及學習 App 的響應式設計"
+                  fetchpriority="high"
+                >
+              </picture>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="service-section section" id="services" aria-labelledby="services-title">
+        <div class="container">
+          <div class="mockup-section-title reveal">
+            <h2 id="services-title">我們的服務</h2>
+            <span aria-hidden="true"></span>
+          </div>
+
+          <div class="service-card-grid">
+            <article class="service-card reveal">
+              <span class="material-symbols-outlined service-card__icon" aria-hidden="true">web</span>
+              <h3>一頁式網站</h3>
+              <p>快速溝通重點，適合活動、課程、個人品牌與需要立即上線的形象需求。</p>
+            </article>
+
+            <article class="service-card reveal">
+              <span class="material-symbols-outlined service-card__icon" aria-hidden="true">desktop_windows</span>
+              <h3>企業形象官網</h3>
+              <p>建立專業品牌形象，清楚呈現服務與產品內容，提升客戶信任與品牌價值。</p>
+            </article>
+
+            <article class="service-card service-card--featured reveal">
+              <span class="service-card__badge">全新服務</span>
+              <span class="material-symbols-outlined service-card__icon" aria-hidden="true">smartphone</span>
+              <h3>APP 開發</h3>
+              <p>依需求整合會員、課程、通知與金流功能，建立專屬的行動數位體驗。</p>
+            </article>
+
+            <article class="service-card reveal">
+              <span class="material-symbols-outlined service-card__icon" aria-hidden="true">school</span>
+              <h3>招生網站</h3>
+              <p>整合課程、報名與最新消息，協助學校與補教品牌提升招生效率。</p>
+            </article>
+
+            <article class="service-card reveal">
+              <span class="material-symbols-outlined service-card__icon" aria-hidden="true">draw</span>
+              <h3>品牌視覺設計</h3>
+              <p>從 Logo、名片到社群視覺，建立一致且專業的品牌識別。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="work-section section" id="work" aria-labelledby="work-title">
+        <div class="container">
+          <div class="mockup-section-title work-section__title reveal">
+            <h2 id="work-title">作品案例 <span>（網站 × APP 整合開發）</span></h2>
+            <span aria-hidden="true"></span>
+          </div>
+
+          <div class="work-grid">
+            <article class="case-card case-card--featured reveal">
+              <a
+                class="case-card__link"
+                href="https://jjtsao.github.io/kindergarten-sample/index.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-portfolio-link
+                data-case-id="sun-you-kindergarten"
+                data-category="education"
+                aria-label="查看聖育幼兒園招生形象官網"
+              >
+                <div class="case-visual case-visual--project">
+                  <img src="assets/case-sunyou-v1.webp" width="1265" height="712" alt="" loading="lazy">
+                </div>
+                <div class="case-card__meta">
+                  <div>
+                    <span class="case-card__category">教育 · 招生形象網站</span>
+                    <h3>聖育幼兒園｜招生形象官網</h3>
+                    <p>整合教育理念、課程特色、校園環境與入園資訊，建立溫暖清晰的招生與預約動線。</p>
+                  </div>
+                  <span class="case-card__arrow" aria-hidden="true">↗</span>
+                </div>
+              </a>
+            </article>
+
+            <article class="case-card reveal">
+              <a
+                class="case-card__link"
+                href="https://www.conquer.tw"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-portfolio-link
+                data-case-id="conquer-tools"
+                data-category="manufacturing"
+                aria-label="查看 CONQUER 專業手工具企業官網"
+              >
+                <div class="case-visual case-visual--project case-visual--conquer">
+                  <img src="assets/case-conquer-v1.webp" width="1265" height="712" alt="" loading="lazy">
+                </div>
+                <div class="case-card__meta">
+                  <div>
+                    <span class="case-card__category">製造 · 企業／產品網站＋後台</span>
+                    <h3>CONQUER｜專業手工具企業官網</h3>
+                    <p>從舊版網站全面重構 UI/UX、前端與後台，整合產品分類、品牌內容及 Amazon 商城導流。</p>
+                  </div>
+                  <span class="case-card__arrow" aria-hidden="true">↗</span>
+                </div>
+              </a>
+            </article>
+
+            <article class="case-card case-card--coming case-card--app-small reveal">
+              <div class="case-card__link" aria-label="EchoUP AI 英語複習 App 開發中">
+                <div class="case-visual case-visual--project case-visual--app">
+                  <img
+                    src="assets/case-echoup-v2.webp"
+                    width="1672"
+                    height="941"
+                    alt="EchoUP AI 英語複習 App 介面與角色插圖"
+                    loading="lazy"
+                  >
+                </div>
+                <div class="case-card__meta">
+                  <div>
+                    <span class="case-card__category">教育科技 · AI 學習 App</span>
+                    <h3>EchoUP｜AI 英語複習 App</h3>
+                    <p>協助補習班業主從教材與課綱快速生成 AI 題庫，讓學生課後透過口說練習複習單字、句型與問答；未來將逐步擴充聽、說、讀及其他科目。</p>
+                  </div>
+                  <span class="status-dot">開發中</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="case-card case-card--coming case-card--app-large reveal">
+              <div class="case-card__link" aria-label="球友局 TeeMates 高爾夫球友 App 即將推出">
+                <div class="case-visual case-visual--project case-visual--app">
+                  <img src="assets/case-teemates-v5.webp" width="1265" height="970" alt="" loading="lazy">
+                </div>
+                <div class="case-card__meta">
+                  <div>
+                    <span class="case-card__category">運動科技 · App 產品開發</span>
+                    <h3>球友局 TeeMates｜高爾夫球友 App</h3>
+                    <p>從零打造高爾夫賽事、成績追蹤與球友互動體驗，涵蓋品牌視覺、操作介面與 App 核心功能。</p>
+                  </div>
+                  <span class="status-dot">開發中</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="process-section section" id="process" aria-labelledby="process-title">
+        <div class="container">
+          <div class="mockup-section-title reveal">
+            <h2 id="process-title">合作流程</h2>
+            <span aria-hidden="true"></span>
+          </div>
+
+          <ol class="process-steps">
+            <li class="process-step reveal">
+              <div class="process-step__icon"><span class="material-symbols-outlined" aria-hidden="true">forum</span></div>
+              <div class="process-step__copy"><span>01</span><h3>需求訪談</h3><p>深入了解品牌、目標與需求，提供專業建議與方向。</p></div>
+            </li>
+            <li class="process-step reveal">
+              <div class="process-step__icon"><span class="material-symbols-outlined" aria-hidden="true">description</span></div>
+              <div class="process-step__copy"><span>02</span><h3>版型提案</h3><p>依照需求規劃網站與 App 架構，提供視覺與內容建議。</p></div>
+            </li>
+            <li class="process-step reveal">
+              <div class="process-step__icon"><span class="material-symbols-outlined" aria-hidden="true">code</span></div>
+              <div class="process-step__copy"><span>03</span><h3>網站與 APP 開發</h3><p>進行前後端與響應式開發，確保品質與體驗兼具。</p></div>
+            </li>
+            <li class="process-step reveal">
+              <div class="process-step__icon"><span class="material-symbols-outlined" aria-hidden="true">send</span></div>
+              <div class="process-step__copy"><span>04</span><h3>上線交付</h3><p>測試與優化後正式上線，並提供後續支援與說明。</p></div>
+            </li>
+          </ol>
+
+          <div class="quality-strip reveal" aria-label="服務特色">
+            <div><span class="material-symbols-outlined" aria-hidden="true">diamond</span><p><strong>高質感設計</strong><small>量身打造專屬風格</small></p></div>
+            <div><span class="material-symbols-outlined" aria-hidden="true">devices</span><p><strong>RWD 響應式</strong><small>完整支援各種裝置</small></p></div>
+            <div><span class="material-symbols-outlined" aria-hidden="true">bolt</span><p><strong>快速交付</strong><small>高效流程，準時交付</small></p></div>
+            <div><span class="material-symbols-outlined" aria-hidden="true">track_changes</span><p><strong>專業策略</strong><small>從品牌到轉換一步到位</small></p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact-cta" id="contact" aria-labelledby="contact-title">
+        <div class="container contact-banner">
+          <img src="assets/flux-mark.png" width="230" height="182" alt="" aria-hidden="true">
+          <div class="contact-banner__copy">
+            <h2 id="contact-title">讓網站與 APP 成為您的最強業務員</h2>
+            <p>從品牌定位到網站與 App 上線，我們陪伴您每一步，創造更多商機與影響力。</p>
+          </div>
+          <a
+            class="button button--primary"
+            href="https://line.me/R/ti/p/@fluxtech"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-line-link
+            data-placement="footer"
+          >
+            免費諮詢 <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="about">
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="#top" aria-label="回到頁首">
+            <img class="brand__mark" src="assets/flux-mark.png" width="230" height="182" alt="">
+            <span class="brand__copy"><strong>flux tech</strong><small>流動科技</small></span>
+          </a>
+          <p>專注品牌、教育與企業網站設計及 APP 開發，以專業設計與技術，協助品牌在數位世界脫穎而出。</p>
+        </div>
+
+        <div class="footer-contact">
+          <p class="footer-label">CONTACT</p>
+          <a href="mailto:hello@fluxtech.com.tw">hello@fluxtech.com.tw</a>
+          <span>台灣・遠端服務全台</span>
+        </div>
+
+        <div class="footer-nav">
+          <p class="footer-label">NAVIGATE</p>
+          <a href="#services">服務</a>
+          <a href="#work">作品</a>
+          <a href="#process">流程</a>
+        </div>
+
+        <div class="footer-social">
+          <p class="footer-label">FOLLOW</p>
+          <div aria-label="社群平台">
+            <span aria-hidden="true">f</span>
+            <span aria-hidden="true">◎</span>
+            <span aria-hidden="true">LINE</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="container footer-bottom">
+        <p>© <span data-current-year>2026</span> Fluxtech. All rights reserved.</p>
+        <p><span>隱私權政策</span><span>服務條款</span></p>
+      </div>
+    </footer>
+
+    <a
+      class="mobile-line-bar"
+      href="https://line.me/R/ti/p/@fluxtech"
+      target="_blank"
+      rel="noopener noreferrer"
+      data-line-link
+      data-placement="mobile_sticky"
+      data-mobile-sticky
+      aria-hidden="true"
+      tabindex="-1"
+    >
+      LINE 免費諮詢 <span aria-hidden="true">↗</span>
+    </a>
+
+    <script src="site-config.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>

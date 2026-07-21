@@ -1,0 +1,22 @@
+{
+  "name": "Fluxtech 流動科技",
+  "short_name": "Fluxtech",
+  "description": "輕量網站、數位產品與按需擴充的開發服務。",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5f7f1",
+  "theme_color": "#c8f500",
+  "lang": "zh-Hant",
+  "icons": [
+    {
+      "src": "assets/favicon-96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
