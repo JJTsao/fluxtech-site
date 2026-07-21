@@ -963,6 +963,11 @@
     background: var(--surface-soft);
   }
 
+  .work-section .case-visual {
+    min-height: 0;
+    aspect-ratio: 1265 / 712;
+  }
+
   .case-visual--project > img {
     position: absolute;
     inset: 0;
@@ -2241,9 +2246,14 @@
       grid-column: span 7;
     }
 
+    .product-grid--single .case-card--app-small {
+      grid-column: 3 / span 8;
+    }
+
     .case-card--featured .case-visual,
     .case-card:not(.case-card--featured):not(.case-card--coming) .case-visual {
-      min-height: 25rem;
+      min-height: 0;
+      aspect-ratio: 1265 / 712;
     }
 
     .case-card--coming .case-visual {
