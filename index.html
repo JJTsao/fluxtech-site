@@ -62,8 +62,6 @@
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0"
       rel="stylesheet"
     >
-    <link rel="preload" href="assets/hero-flow-light.webp" as="image" type="image/webp">
-
     <link rel="stylesheet" href="styles.css">
 
     <script type="application/ld+json">
@@ -181,7 +179,22 @@
 
     <main id="main-content">
       <div class="flow-stage" data-flow-stage>
-        <div class="flow-stage__raster" aria-hidden="true"></div>
+        <div class="flow-stage__raster" aria-hidden="true">
+          <picture>
+            <source media="(max-width: 39.999rem)" type="image/avif" data-flow-raster-source="avif" data-flow-raster-context="mobile">
+            <source media="(max-width: 39.999rem)" type="image/webp" data-flow-raster-source="webp" data-flow-raster-context="mobile">
+            <source type="image/avif" data-flow-raster-source="avif" data-flow-raster-context="desktop">
+            <source type="image/webp" data-flow-raster-source="webp" data-flow-raster-context="desktop">
+            <img
+              data-flow-raster-image
+              src="assets/flow-stage-raster-light-1586.webp"
+              width="1586"
+              height="992"
+              alt=""
+              fetchpriority="high"
+            >
+          </picture>
+        </div>
         <div class="flow-stage__vector" aria-hidden="true">
           <svg viewBox="0 0 1600 1120" preserveAspectRatio="xMaxYMid slice" focusable="false">
             <defs>

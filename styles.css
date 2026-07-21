@@ -79,7 +79,6 @@
     --header: #f5f7f1;
     --header-alpha: rgba(245, 247, 241, 0.9);
     --hero-image: url("assets/hero-flow-light.webp");
-    --flow-stage-raster: url("assets/flow-stage-raster-light.webp");
     --section-contrast: #e9eee4;
     --shadow-soft: 0 24px 70px rgba(32, 43, 25, 0.1);
 
@@ -110,7 +109,6 @@
     --header: #0b0e0c;
     --header-alpha: rgba(11, 14, 12, 0.9);
     --hero-image: url("assets/hero-flow-dark.webp");
-    --flow-stage-raster: url("assets/flow-stage-raster-dark.webp");
     --section-contrast: #0f140f;
     --shadow-soft: none;
   }
@@ -684,14 +682,23 @@
   }
 
   .flow-stage__raster {
-    background-image: var(--flow-stage-raster);
-    background-position: 100% 38%;
-    background-repeat: no-repeat;
-    background-size: cover;
+    display: grid;
+    align-items: end;
+    justify-items: end;
     opacity: 0.66;
-    transform: scale(1.025);
-    will-change: transform;
-    animation: flow-raster-drift 18s ease-in-out infinite alternate;
+  }
+
+  .flow-stage__raster picture {
+    display: block;
+    width: min(118vw, 99.125rem);
+    max-width: none;
+    transform: translate(3%, 1%);
+  }
+
+  .flow-stage__raster img {
+    display: block;
+    width: 100%;
+    height: auto;
   }
 
   .flow-stage__vector {
@@ -786,11 +793,27 @@
 
   html[data-flow-variant="svg"] .flow-stage__raster {
     opacity: 0;
-    animation-play-state: paused;
   }
 
   html[data-flow-variant="svg"] .flow-stage__vector {
     opacity: 0.86;
+  }
+
+  html[data-flow-variant="hybrid"] .flow-stage__vector {
+    opacity: 0.48;
+  }
+
+  html[data-flow-variant="hybrid"] .flow-ribbon--charcoal,
+  html[data-flow-variant="hybrid"] .flow-ribbon--wide {
+    opacity: 0;
+  }
+
+  html[data-flow-variant="hybrid"] .flow-ribbon--lime {
+    opacity: 0.18;
+  }
+
+  html[data-flow-variant="hybrid"] .flow-ribbon--fine {
+    opacity: 0.34;
   }
 
   .flow-stage .hero,
@@ -2083,16 +2106,6 @@
     }
   }
 
-  @keyframes flow-raster-drift {
-    from {
-      transform: scale(1.025) translate3d(0, 0, 0);
-    }
-
-    to {
-      transform: scale(1.05) translate3d(-1.2%, 0.7%, 0);
-    }
-  }
-
   @keyframes flow-vector-drift {
     from {
       transform: translate3d(0, 0, 0) scale(1);
@@ -2140,9 +2153,12 @@
 @layer responsive {
   @media (max-width: 39.999rem) {
     .flow-stage__raster {
-      background-position: 100% 20%;
-      background-size: auto 76rem;
       opacity: 0.54;
+    }
+
+    .flow-stage__raster picture {
+      width: 31.25rem;
+      transform: translate(21%, 0);
     }
 
     .flow-stage__vector {
@@ -2629,7 +2645,6 @@
       opacity: 1;
     }
 
-    .flow-stage__raster,
     .flow-stage__vector-ribbons,
     .flow-ribbon--glow,
     .flow-stage__vector-particles {
