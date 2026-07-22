@@ -839,18 +839,6 @@
     background: var(--page);
   }
 
-  .hero::before {
-    position: absolute;
-    z-index: 1;
-    top: 0;
-    bottom: 0;
-    left: 8%;
-    width: 1px;
-    background: var(--line);
-    content: "";
-    opacity: 0.6;
-  }
-
   .hero__art {
     position: absolute;
     z-index: 0;
@@ -2313,10 +2301,6 @@
 
     .hero {
       min-height: 43rem;
-    }
-
-    .hero::before {
-      left: max(calc((100vw - var(--container)) / 2), var(--gutter));
     }
 
     .hero__grid {
