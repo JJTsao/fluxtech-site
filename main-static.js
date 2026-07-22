@@ -4,20 +4,42 @@ const siteConfig = Object.freeze({
   themeStorageKey: "fluxtech-theme",
   ...(typeof fluxtechSiteConfig === "undefined" ? {} : fluxtechSiteConfig),
 });
-
 const root = document.documentElement;
+const flowVariant = new URLSearchParams(window.location.search).get("flow_variant");
 const themeToggles = document.querySelectorAll("[data-theme-toggle]");
 const themeOptions = document.querySelectorAll("[data-theme-option]");
 const themeColorMeta = document.querySelector('meta[name="theme-color"]');
 const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+const flowRasterSources = document.querySelectorAll("[data-flow-raster-source]");
+const flowRasterImage = document.querySelector("[data-flow-raster-image]");
+
+root.dataset.flowVariant = ["raster", "svg", "hybrid"].includes(flowVariant) ? flowVariant : "hybrid";
+
+function updateFlowRaster(theme) {
+  const name = theme === "dark" ? "dark" : "light";
+
+  flowRasterSources.forEach((source) => {
+    const format = source.dataset.flowRasterSource;
+    const context = source.dataset.flowRasterContext;
+
+    source.srcset = context === "mobile"
+      ? `assets/flow-stage-raster-${name}-mobile.${format} 941w`
+      : `assets/flow-stage-raster-${name}-960.${format} 960w, assets/flow-stage-raster-${name}-1586.${format} 1586w, assets/flow-stage-raster-${name}-3172.${format} 3172w`;
+    source.sizes = context === "mobile"
+      ? "31.25rem"
+      : "(min-width: 84rem) 99.125rem, 118vw";
+  });
+
+  if (flowRasterImage) {
+    flowRasterImage.src = `assets/flow-stage-raster-${name}-1586.webp`;
+  }
+}
 
 function setTheme(theme, { persist = false } = {}) {
   const nextTheme = theme === "dark" ? "dark" : "light";
   root.dataset.theme = nextTheme;
-
-  // 讓 WebGL flow field 不耦合主題切換程式也能同步更新顏色與混色模式。
-  window.dispatchEvent(new CustomEvent("fluxtech:themechange", { detail: { theme: nextTheme } }));
+  updateFlowRaster(nextTheme);
 
   if (persist) {
     try {

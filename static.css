@@ -78,6 +78,7 @@
     --focus: #567400;
     --header: #f5f7f1;
     --header-alpha: rgba(245, 247, 241, 0.9);
+    --hero-image: url("assets/hero-flow-light.webp");
     --section-contrast: #e9eee4;
     --shadow-soft: 0 24px 70px rgba(32, 43, 25, 0.1);
 
@@ -107,6 +108,7 @@
     --focus: #c8f500;
     --header: #0b0e0c;
     --header-alpha: rgba(11, 14, 12, 0.9);
+    --hero-image: url("assets/hero-flow-dark.webp");
     --section-contrast: #0f140f;
     --shadow-soft: none;
   }
@@ -236,8 +238,7 @@
   .button span {
     display: inline-block;
     font-size: 1.05em;
-    transform: translateX(0);
-    transition: transform 160ms var(--ease-out);
+    transition: transform 180ms var(--ease-out);
   }
 
   .button--primary {
@@ -672,6 +673,149 @@
     background: linear-gradient(to bottom, var(--page) 0%, var(--page) 52%, var(--surface) 68%, var(--surface) 100%);
   }
 
+  .flow-stage__raster,
+  .flow-stage__vector {
+    position: absolute;
+    z-index: 0;
+    inset: -3%;
+    pointer-events: none;
+  }
+
+  .flow-stage__raster {
+    display: grid;
+    align-items: end;
+    justify-items: end;
+    opacity: 0.66;
+  }
+
+  .flow-stage__raster picture {
+    display: block;
+    width: min(118vw, 99.125rem);
+    max-width: none;
+    transform: translate(3%, 1%);
+  }
+
+  .flow-stage__raster img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .flow-stage__vector {
+    opacity: 0;
+    overflow: hidden;
+    transition: opacity 320ms var(--ease-out);
+  }
+
+  .flow-stage__vector svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .flow-stage__vector-ribbons {
+    transform-origin: 100% 50%;
+    animation: flow-vector-drift 15s ease-in-out infinite alternate;
+  }
+
+  .flow-ribbon {
+    fill: none;
+    stroke-linecap: round;
+  }
+
+  .flow-ribbon--charcoal {
+    stroke: url(#flow-charcoal);
+    stroke-width: 54;
+    opacity: 0.2;
+  }
+
+  .flow-ribbon--wide {
+    stroke: url(#flow-lime);
+    stroke-width: 26;
+    opacity: 0.16;
+  }
+
+  .flow-ribbon--lime {
+    stroke: url(#flow-lime);
+    stroke-width: 5;
+    opacity: 0.66;
+  }
+
+  .flow-ribbon--fine {
+    stroke: url(#flow-lime);
+    stroke-width: 1.8;
+    opacity: 0.5;
+  }
+
+  .flow-ribbon--offset {
+    opacity: 0.28;
+  }
+
+  .flow-ribbon--glow {
+    stroke: url(#flow-lime);
+    stroke-width: 4;
+    stroke-dasharray: 42 930;
+    filter: url(#flow-glow);
+    opacity: 0.9;
+    animation: flow-trace 9s linear infinite;
+  }
+
+  .flow-stage__vector-particles {
+    fill: var(--brand);
+    opacity: 0.72;
+    transform-origin: 100% 50%;
+    animation: flow-particles 10s ease-in-out infinite alternate;
+  }
+
+  .flow-stop--soft {
+    stop-color: color-mix(in srgb, var(--surface) 10%, transparent);
+  }
+
+  .flow-stop--lime {
+    stop-color: var(--brand-deep);
+  }
+
+  .flow-stop--bright {
+    stop-color: color-mix(in srgb, var(--brand) 68%, #fff 32%);
+  }
+
+  .flow-stop--charcoal-soft {
+    stop-color: color-mix(in srgb, var(--surface) 16%, transparent);
+  }
+
+  .flow-stop--charcoal {
+    stop-color: var(--text);
+  }
+
+  html[data-theme="dark"] .flow-stop--bright {
+    stop-color: color-mix(in srgb, var(--brand) 80%, #f6ffb2 20%);
+  }
+
+  html[data-flow-variant="svg"] .flow-stage__raster {
+    opacity: 0;
+  }
+
+  html[data-flow-variant="svg"] .flow-stage__vector {
+    opacity: 0.86;
+  }
+
+  html[data-flow-variant="hybrid"] .flow-stage__vector {
+    opacity: 0.48;
+  }
+
+  html[data-flow-variant="hybrid"] .flow-ribbon--charcoal,
+  html[data-flow-variant="hybrid"] .flow-ribbon--wide {
+    opacity: 0;
+  }
+
+  html[data-flow-variant="hybrid"] .flow-ribbon--lime {
+    opacity: 0.18;
+  }
+
+  html[data-flow-variant="hybrid"] .flow-ribbon--fine {
+    opacity: 0.34;
+  }
+
   .flow-stage .hero,
   .flow-stage .service-section {
     position: relative;
@@ -718,6 +862,12 @@
   .hero__art-image {
     position: absolute;
     inset: 0;
+    background-image: var(--hero-image);
+    background-position: 68% center;
+    background-size: cover;
+    opacity: 0.74;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 24%, #000 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 24%, #000 100%);
   }
 
   .hero__grid {
@@ -1567,9 +1717,8 @@
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse at 88% 45%, rgba(200, 245, 0, 0.16), transparent 38%),
-      radial-gradient(ellipse at 73% 72%, rgba(88, 116, 52, 0.26), transparent 30%),
-      linear-gradient(90deg, #0b0e0c 0%, rgba(11, 14, 12, 0.89) 48%, rgba(11, 14, 12, 0.42) 100%);
+      linear-gradient(90deg, #0b0e0c 0%, rgba(11, 14, 12, 0.85) 42%, rgba(11, 14, 12, 0.2) 100%),
+      url("assets/hero-flow-dark.webp") 62% center / cover no-repeat;
   }
 
   .contact-cta__content {
@@ -1829,8 +1978,7 @@
     border-radius: var(--radius-md);
     background:
       linear-gradient(90deg, var(--surface) 0%, var(--surface) 48%, transparent 100%),
-      radial-gradient(ellipse at 84% 54%, color-mix(in srgb, var(--brand) 23%, transparent), transparent 34%),
-      var(--surface-soft);
+      var(--hero-image) 82% center / cover no-repeat;
   }
 
   .contact-banner::after {
@@ -1941,71 +2089,53 @@
 }
 
 @layer utilities {
-  /* A fixed WebGL layer sits behind the entire document, independent of scroll. */
-  body {
-    isolation: isolate;
+  .reveal-ready .reveal.is-visible {
+    animation: reveal-in 650ms var(--ease-out) both;
+    animation-delay: calc(var(--reveal-order, 0) * 70ms);
   }
 
-  .site-flow {
-    position: fixed;
-    z-index: 0;
-    inset: 0;
-    overflow: hidden;
-    visibility: hidden;
-    pointer-events: none;
+  @keyframes reveal-in {
+    from {
+      transform: translateY(1.5rem);
+      opacity: 0;
+    }
+
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
   }
 
-  html.webgl-flow-ready .site-flow {
-    visibility: visible;
+  @keyframes flow-vector-drift {
+    from {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    to {
+      transform: translate3d(-0.8%, 0.6%, 0) scale(1.018);
+    }
   }
 
-  .site-flow canvas {
-    display: block;
-    width: 100%;
-    height: 100%;
+  @keyframes flow-trace {
+    from {
+      stroke-dashoffset: 930;
+    }
+
+    to {
+      stroke-dashoffset: -40;
+    }
   }
 
-  #main-content,
-  .site-footer {
-    position: relative;
-    z-index: 1;
-  }
+  @keyframes flow-particles {
+    from {
+      transform: translate3d(0, 0, 0);
+      opacity: 0.32;
+    }
 
-  html.webgl-flow-ready .flow-stage {
-    overflow: visible;
-    background: transparent;
-  }
-
-  html.webgl-flow-ready .hero,
-  html.webgl-flow-ready .work-section,
-  html.webgl-flow-ready .process-section,
-  html.webgl-flow-ready .contact-cta {
-    background: transparent;
-  }
-
-  html.webgl-flow-ready .service-section {
-    background: color-mix(in srgb, var(--surface) 58%, transparent);
-  }
-
-  html.webgl-flow-ready .product-section {
-    background: color-mix(in srgb, var(--section-contrast) 60%, transparent);
-  }
-
-  html.webgl-flow-ready .faq-section {
-    background: color-mix(in srgb, var(--surface) 64%, transparent);
-  }
-
-  html.webgl-flow-ready .site-footer {
-    background: color-mix(in srgb, var(--page) 72%, transparent);
-  }
-
-  html.webgl-flow-ready .contact-cta__art {
-    background: linear-gradient(
-      90deg,
-      rgba(11, 14, 12, 0.72) 0%,
-      rgba(11, 14, 12, 0.60) 48%,
-      rgba(11, 14, 12, 0.30) 100%
-    );
+    to {
+      transform: translate3d(-1.4%, 0.8%, 0);
+      opacity: 0.82;
+    }
   }
 
   .sr-only {
@@ -2021,6 +2151,25 @@
 }
 
 @layer responsive {
+  @media (max-width: 39.999rem) {
+    .flow-stage__raster {
+      opacity: 0.54;
+    }
+
+    .flow-stage__raster picture {
+      width: 31.25rem;
+      transform: translate(21%, 0);
+    }
+
+    .flow-stage__vector {
+      inset: -1% -5%;
+    }
+
+    html[data-flow-variant="svg"] .flow-stage__vector {
+      opacity: 0.68;
+    }
+  }
+
   @media (min-width: 40rem) {
     .nav-line-button {
       display: inline-flex;
@@ -2425,7 +2574,7 @@
     }
 
     .button:hover span {
-      transform: translateX(0.2rem);
+      transform: translate(0.12rem, -0.12rem);
     }
 
     .button--primary:hover,
@@ -2490,5 +2639,16 @@
       scroll-behavior: auto !important;
     }
 
+    .reveal-ready .reveal {
+      animation: none;
+      transform: none;
+      opacity: 1;
+    }
+
+    .flow-stage__vector-ribbons,
+    .flow-ribbon--glow,
+    .flow-stage__vector-particles {
+      animation: none;
+    }
   }
 }
