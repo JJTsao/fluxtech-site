@@ -2207,6 +2207,33 @@
     html[data-flow-variant="svg"] .flow-stage__vector {
       opacity: 0.68;
     }
+
+    /* Keep the right-side convergence inside narrow phone viewports. */
+    .static-flow-background .flow-stage__raster {
+      opacity: 0.66;
+    }
+
+    .static-flow-background .flow-stage__raster picture {
+      width: max(34rem, 148vw);
+      transform: translate(-25%, 2%);
+    }
+
+    .static-flow-background .flow-stage__vector {
+      inset: -4% 0 -6% -28%;
+    }
+  }
+
+  @media (min-width: 40rem) and (max-width: 75.999rem) {
+    /* Portrait and landscape tablets retain the full convergence rather than
+       inheriting the desktop's right-biased crop. */
+    .static-flow-background .flow-stage__raster picture {
+      width: min(78rem, 132vw);
+      transform: translate(-19%, 3%);
+    }
+
+    .static-flow-background .flow-stage__vector {
+      inset: -5% 0 -7% -18%;
+    }
   }
 
   @media (min-width: 40rem) {
