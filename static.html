@@ -62,7 +62,7 @@
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0"
       rel="stylesheet"
     >
-    <link rel="stylesheet" href="static.css?v=20260722-static-preview-5">
+    <link rel="stylesheet" href="static.css?v=20260723-static-raster-only-1">
 
     <script type="application/ld+json">
       {
@@ -177,7 +177,7 @@
       </nav>
     </header>
 
-    <!-- One fixed raster/SVG surface keeps the static flow continuous across the page. -->
+    <!-- One fixed raster surface keeps the static flow continuous across the page. -->
     <div class="static-flow-background" aria-hidden="true">
       <div class="flow-stage__raster">
         <picture>
@@ -194,36 +194,6 @@
             fetchpriority="high"
           >
         </picture>
-      </div>
-      <div class="flow-stage__vector">
-        <svg viewBox="0 0 1600 1120" preserveAspectRatio="xMaxYMid slice" focusable="false">
-          <defs>
-            <linearGradient id="flow-lime" x1="0" x2="1" y1="1" y2="0">
-              <stop class="flow-stop flow-stop--soft" offset="0"></stop>
-              <stop class="flow-stop flow-stop--lime" offset="0.58"></stop>
-              <stop class="flow-stop flow-stop--bright" offset="1"></stop>
-            </linearGradient>
-            <linearGradient id="flow-charcoal" x1="0" x2="1" y1="1" y2="0">
-              <stop class="flow-stop flow-stop--charcoal-soft" offset="0"></stop>
-              <stop class="flow-stop flow-stop--charcoal" offset="1"></stop>
-            </linearGradient>
-            <filter id="flow-glow" x="-30%" y="-30%" width="160%" height="160%">
-              <feGaussianBlur stdDeviation="4" result="blur"></feGaussianBlur>
-              <feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
-            </filter>
-          </defs>
-          <g class="flow-stage__vector-ribbons">
-            <path class="flow-ribbon flow-ribbon--charcoal" d="M 1710 -46 C 1424 68 1415 320 1120 450 C 879 557 714 683 372 1157"></path>
-            <path class="flow-ribbon flow-ribbon--wide" d="M 1670 -58 C 1460 164 1394 340 1175 486 C 979 616 869 755 596 1138"></path>
-            <path class="flow-ribbon flow-ribbon--lime" d="M 1642 -30 C 1450 188 1368 370 1157 518 C 965 652 807 786 506 1135"></path>
-            <path class="flow-ribbon flow-ribbon--fine" d="M 1730 92 C 1502 255 1430 436 1200 576 C 1000 696 906 818 720 1103"></path>
-            <path class="flow-ribbon flow-ribbon--fine flow-ribbon--offset" d="M 1572 -72 C 1405 188 1305 348 1050 486 C 826 608 695 755 319 1078"></path>
-            <path class="flow-ribbon flow-ribbon--glow" d="M 1652 16 C 1454 220 1388 360 1154 505 C 941 638 823 769 549 1110"></path>
-          </g>
-          <g class="flow-stage__vector-particles">
-            <circle cx="1170" cy="532" r="3"></circle><circle cx="1085" cy="590" r="2"></circle><circle cx="1008" cy="646" r="3"></circle><circle cx="928" cy="700" r="2"></circle><circle cx="858" cy="750" r="2.5"></circle><circle cx="776" cy="806" r="2"></circle><circle cx="700" cy="865" r="1.6"></circle><circle cx="624" cy="925" r="1.4"></circle>
-          </g>
-        </svg>
       </div>
     </div>
 

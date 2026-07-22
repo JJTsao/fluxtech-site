@@ -5,7 +5,6 @@ const siteConfig = Object.freeze({
   ...(typeof fluxtechSiteConfig === "undefined" ? {} : fluxtechSiteConfig),
 });
 const root = document.documentElement;
-const flowVariant = new URLSearchParams(window.location.search).get("flow_variant");
 const themeToggles = document.querySelectorAll("[data-theme-toggle]");
 const themeOptions = document.querySelectorAll("[data-theme-option]");
 const themeColorMeta = document.querySelector('meta[name="theme-color"]');
@@ -13,8 +12,6 @@ const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const flowRasterSources = document.querySelectorAll("[data-flow-raster-source]");
 const flowRasterImage = document.querySelector("[data-flow-raster-image]");
-
-root.dataset.flowVariant = ["raster", "svg", "hybrid"].includes(flowVariant) ? flowVariant : "hybrid";
 
 function updateFlowRaster(theme) {
   const name = theme === "dark" ? "dark" : "light";
