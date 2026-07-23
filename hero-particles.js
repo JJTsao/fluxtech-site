@@ -112,7 +112,13 @@ function initializeFlowScene() {
     const cover = Math.max(bounds.width / FLOW_VIEWBOX.width, bounds.height / FLOW_VIEWBOX.height);
     const flowWidth = (FLOW_VIEWBOX.width * cover) / bounds.height;
     const flowHeight = (FLOW_VIEWBOX.height * cover) / bounds.height;
-    flowUniforms.uFlowOrigin.value.set(camera.right - flowWidth, flowHeight / 2);
+    const aspectRatio = bounds.width / bounds.height;
+    const narrowFlowShift = Math.min(0.34, Math.max(0, (0.95 - aspectRatio) * 0.7));
+    const narrowVerticalShift = Math.min(0.30, Math.max(0, (0.9 - aspectRatio) * 0.68));
+    flowUniforms.uFlowOrigin.value.set(
+      camera.right - flowWidth + flowWidth * narrowFlowShift,
+      flowHeight / 2 - flowHeight * narrowVerticalShift,
+    );
     flowUniforms.uFlowSize.value.set(flowWidth, flowHeight);
     flowUniforms.uWorldPerPixel.value = 1 / bounds.height;
     flowUniforms.uPixelRatio.value = pixelRatio;
@@ -301,26 +307,17 @@ const FLOW_FIELD_GLSL = `
   uniform float uVerticalScale;
   uniform float uFanScale;
 
-  vec2 cubic(vec2 a, vec2 b, vec2 c, vec2 d, float t) {
-    float r = 1.0 - t;
-    return r * r * r * a + 3.0 * r * r * t * b + 3.0 * r * t * t * c + t * t * t * d;
-  }
-
   float hash11(float value) {
     return fract(sin(value * 91.733) * 43758.5453123);
   }
 
   vec2 flowSpine(float t) {
-    // The spine follows the raster reference: a tight right-side convergence,
-    // a deliberate counter-bend, then a broad lower-left release. The endpoints
-    // remain outside the frame so responsive crops never expose a hard start.
-    if (t < 0.28) {
-      return cubic(vec2(1.780, 0.080), vec2(1.450, 0.080), vec2(1.000, 0.220), vec2(0.850, 0.360), t / 0.28);
-    }
-    if (t < 0.62) {
-      return cubic(vec2(0.850, 0.360), vec2(0.700, 0.480), vec2(1.080, 0.550), vec2(0.840, 0.640), (t - 0.28) / 0.34);
-    }
-    return cubic(vec2(0.840, 0.640), vec2(0.620, 0.720), vec2(0.000, 0.900), vec2(-0.720, 1.120), (t - 0.62) / 0.38);
+    // A single analytic S curve: constant horizontal progress and one cubic
+    // smoothstep inflection. There are no segment joins or exposed endpoints.
+    float sCurve = t * t * (3.0 - 2.0 * t);
+    float x = mix(1.320, -0.420, t);
+    float y = 0.075 + 0.140 * t + 0.580 * sCurve;
+    return vec2(x, y);
   }
 
   vec2 flowPoint(float t, float lane, float seed) {
@@ -328,9 +325,24 @@ const FLOW_FIELD_GLSL = `
     float delta = 0.0025;
     vec2 tangent = normalize(flowSpine(min(1.0, t + delta)) - flowSpine(max(0.0, t - delta)));
     vec2 normal = vec2(-tangent.y, tangent.x);
-    float fan = mix(0.001, 0.215, pow(t, 0.86)) * uFanScale;
-    float weave = sin(t * 4.4 + seed * 8.0) * 0.0038 * pow(t, 1.8);
-    float offset = lane * fan + weave * (0.45 + hash11(seed) * 0.55);
+
+    // A continuous width envelope makes the family converge once, then fan
+    // out again. The Gaussian pinch never changes the curve topology.
+    float baseSpread = mix(0.095, 0.235, smoothstep(0.280, 1.0, t));
+    float pinchDistance = (t - 0.420) / 0.120;
+    float pinch = exp(-(pinchDistance * pinchDistance));
+    float fan = mix(baseSpread, 0.010, pinch) * uFanScale;
+
+    // Seeded variation disappears at both endpoints and stays far below the
+    // lane spacing, preserving ordered fibres without mechanical translation.
+    float organicWindow = sin(3.14159265 * t);
+    float seedBias = hash11(seed + 3.7) * 2.0 - 1.0;
+    float individuality = 0.90 + 0.18 * hash11(seed + 5.1);
+    float microCurve = organicWindow * (
+      0.0042 * sin(t * 7.8539816 + seed * 6.2831853) +
+      0.0048 * seedBias * (0.35 + 0.65 * abs(lane))
+    );
+    float offset = lane * fan * individuality + microCurve;
     return point + normal * offset;
   }
 
@@ -392,8 +404,10 @@ function createRibbonLayer(count, widthPx, opacity, density, flowUniforms) {
       void main() {
         float edge = 1.0 - smoothstep(0.22, 1.0, abs(vSide));
         float trace = 0.90 + 0.10 * sin(vProgress * 16.0 - uTime * 0.00052);
-        float convergence = mix(1.0, 0.55 + 0.75 * (1.0 - smoothstep(0.0, 0.36, vProgress)), uCoreStrength);
-        float entry = smoothstep(0.02, 0.30, vProgress);
+        float pinchDistance = (vProgress - 0.420) / 0.150;
+        float pinchGlow = exp(-(pinchDistance * pinchDistance));
+        float convergence = mix(1.0, 0.65 + 0.95 * pinchGlow, uCoreStrength);
+        float entry = smoothstep(0.02, 0.18, vProgress);
         float alpha = edge * trace * convergence * entry * uLayerOpacity * uThemeOpacity;
         if (alpha < 0.002) discard;
         gl_FragColor = vec4(uColor, alpha);
@@ -519,7 +533,7 @@ function createParticles(count, flowUniforms) {
         float radius = distance(gl_PointCoord, vec2(0.5));
         float halo = smoothstep(0.5, 0.08, radius) * 0.30;
         float core = smoothstep(0.20, 0.0, radius);
-        float entry = smoothstep(0.02, 0.30, vProgress);
+        float entry = smoothstep(0.02, 0.18, vProgress);
         float alpha = (halo + core) * (0.38 + vEnergy * 0.62) * entry * uThemeOpacity;
         if (alpha < 0.01) discard;
         gl_FragColor = vec4(uColor, alpha);
