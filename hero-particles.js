@@ -315,12 +315,12 @@ const FLOW_FIELD_GLSL = `
     // a deliberate counter-bend, then a broad lower-left release. The endpoints
     // remain outside the frame so responsive crops never expose a hard start.
     if (t < 0.28) {
-      return cubic(vec2(1.780, 0.080), vec2(1.520, 0.110), vec2(1.090, 0.270), vec2(0.960, 0.430), t / 0.28);
+      return cubic(vec2(1.780, 0.080), vec2(1.450, 0.080), vec2(1.000, 0.220), vec2(0.850, 0.360), t / 0.28);
     }
     if (t < 0.62) {
-      return cubic(vec2(0.960, 0.430), vec2(0.860, 0.580), vec2(1.160, 0.680), vec2(0.960, 0.820), (t - 0.28) / 0.34);
+      return cubic(vec2(0.850, 0.360), vec2(0.700, 0.480), vec2(1.080, 0.550), vec2(0.840, 0.640), (t - 0.28) / 0.34);
     }
-    return cubic(vec2(0.960, 0.820), vec2(0.700, 0.930), vec2(0.040, 1.080), vec2(-0.720, 1.340), (t - 0.62) / 0.38);
+    return cubic(vec2(0.840, 0.640), vec2(0.620, 0.720), vec2(0.000, 0.900), vec2(-0.720, 1.120), (t - 0.62) / 0.38);
   }
 
   vec2 flowPoint(float t, float lane, float seed) {
