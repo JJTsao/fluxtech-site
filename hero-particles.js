@@ -12,9 +12,9 @@ const FIBER_SEGMENTS = 72;
 const PARTICLE_COUNT = 280;
 const PARTICLE_DEGRADED_COUNT = 168;
 const GLOBAL_FLOW_SETTINGS = Object.freeze({
-  verticalScale: 1.30,
-  coreStrength: 0.72,
-  fanScale: 0.86,
+  verticalScale: 1.24,
+  coreStrength: 0.82,
+  fanScale: 0.88,
 });
 
 const flowRoot = document.documentElement;
@@ -311,13 +311,16 @@ const FLOW_FIELD_GLSL = `
   }
 
   vec2 flowSpine(float t) {
-    if (t < 0.47) {
-      // Start well beyond the right edge, so a fibre is already established
-      // before it can enter the viewport at any supported aspect ratio.
-      return cubic(vec2(1.720, 0.320), vec2(1.380, 0.370), vec2(0.940, 0.540), vec2(0.650, 0.688), t / 0.47);
+    // The spine follows the raster reference: a tight right-side convergence,
+    // a deliberate counter-bend, then a broad lower-left release. The endpoints
+    // remain outside the frame so responsive crops never expose a hard start.
+    if (t < 0.28) {
+      return cubic(vec2(1.780, 0.080), vec2(1.520, 0.110), vec2(1.090, 0.270), vec2(0.960, 0.430), t / 0.28);
     }
-    // Finish beyond the lower-left edge as well; no endpoint can be exposed.
-    return cubic(vec2(0.650, 0.688), vec2(0.400, 0.820), vec2(0.030, 1.020), vec2(-0.720, 1.340), (t - 0.47) / 0.53);
+    if (t < 0.62) {
+      return cubic(vec2(0.960, 0.430), vec2(0.860, 0.580), vec2(1.160, 0.680), vec2(0.960, 0.820), (t - 0.28) / 0.34);
+    }
+    return cubic(vec2(0.960, 0.820), vec2(0.700, 0.930), vec2(0.040, 1.080), vec2(-0.720, 1.340), (t - 0.62) / 0.38);
   }
 
   vec2 flowPoint(float t, float lane, float seed) {
