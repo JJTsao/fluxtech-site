@@ -1628,9 +1628,10 @@
 
   .faq-answer p {
     max-width: 45rem;
-    padding: 0 2.25rem 1.75rem;
+    padding: 0 2.25rem 1.75rem 2.95rem;
     color: var(--text-soft);
     font-size: 0.9rem;
+    text-wrap: pretty;
   }
 
   .contact-cta {
@@ -2198,7 +2199,7 @@
     }
 
     .faq-answer p {
-      padding-left: 3rem;
+      padding-left: 3.75rem;
     }
   }
 
