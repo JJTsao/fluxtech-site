@@ -948,6 +948,7 @@
 
   .case-card__link {
     display: grid;
+    align-content: start;
     height: 100%;
     overflow: hidden;
     border: 1px solid var(--line);
@@ -969,6 +970,10 @@
   .work-section .case-visual {
     min-height: 0;
     aspect-ratio: 1265 / 712;
+  }
+
+  .work-section .case-card--tall-thumb .case-visual {
+    aspect-ratio: 4 / 3;
   }
 
   .case-visual--project > img {
@@ -2058,7 +2063,11 @@
       grid-column: 1 / -1;
     }
 
-    .case-card:not(.case-card--featured):not(.case-card--coming) {
+    .case-card:not(.case-card--featured):not(.case-card--coming):not(.case-card--wide) {
+      grid-column: 1 / -1;
+    }
+
+    .case-card--wide {
       grid-column: 1 / -1;
     }
 
@@ -2285,8 +2294,12 @@
       grid-column: span 7;
     }
 
-    .case-card:not(.case-card--featured):not(.case-card--coming) {
+    .case-card:not(.case-card--featured):not(.case-card--coming):not(.case-card--wide) {
       grid-column: span 5;
+    }
+
+    .case-card--wide {
+      grid-column: span 7;
     }
 
     .case-card--app-small {
@@ -2305,6 +2318,10 @@
     .case-card:not(.case-card--featured):not(.case-card--coming) .case-visual {
       min-height: 0;
       aspect-ratio: 1265 / 712;
+    }
+
+    .work-section .work-grid .case-card--tall-thumb .case-visual {
+      aspect-ratio: 4 / 3;
     }
 
     .case-card--coming .case-visual {
