@@ -327,3 +327,13 @@ document.querySelectorAll("[data-line-link]").forEach((link) => {
     });
   });
 });
+
+document.querySelectorAll("[data-portfolio-link]").forEach((link) => {
+  link.addEventListener("click", () => {
+    trackEvent("portfolio_click", {
+      case_id: link.dataset.caseId || "unknown",
+      category: link.dataset.category || "unknown",
+      destination: link.href,
+    });
+  });
+});
